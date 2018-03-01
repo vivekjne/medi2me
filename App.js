@@ -1,48 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-import { Drawer } from 'native-base';
-import  Main from './Components/Main';
-export default class App extends React.Component {
-state={
-  isReady:false,
-  drawerToggle:false
-}
-closeDrawer = () => {
-  this.drawer._root.close()
-};
-openDrawer = () => {
-  this.drawer._root.open()
-};
-
-
+import React, { Component } from "react";
+import Expo from "expo";
+import HomeScreen from "./Screens/HomeScreen/index.js";
+import { Provider } from 'react-redux';
+import { createStore,applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
+import reducers from './reducers';
+const store = createStore(reducers,{},applyMiddleware(reduxThunk))
+export default class AwesomeApp extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isReady: false
+    };
+  }
   async componentWillMount() {
     await Expo.Font.loadAsync({
-      'Roboto': require('native-base/Fonts/Roboto.ttf'),
-      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-      
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("native-base/Fonts/Ionicons.ttf")
     });
-    this.setState({isReady:true})
+    this.setState({ isReady: true });
   }
   render() {
-
-    return (
-      <Drawer
-      ref={(ref) => { this.drawer = ref; }}
-       
-      content={<View style={{flex:1,backgroundColor:'red'}}><Text> Test </Text></View>}
-      onClose={() => this.closeDrawer()} >
-    {this.state.isReady?<Main drawerClick={()=>this.openDrawer()}></Main>:null}
-    </Drawer>
-    );
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
+    return(<Provider store={store}>
+     <HomeScreen />
+    </Provider>
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    
-   
-  },
-});
