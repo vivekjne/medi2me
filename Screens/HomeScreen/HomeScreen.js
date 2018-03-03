@@ -75,7 +75,7 @@ class HomeScreen extends React.Component {
         <Title>HomeScreen</Title>
       </Body>
       <Right style={{position:'relative'}}>
-      <Button transparent>
+      <Button transparent onPress={()=>this.props.navigation.navigate('Cart')}>
       <Icon name="cart" style={{fontSize:35}}/>
       {this.props.count>0 && <Badge  style={{position:'absolute',top:2,left:30}}>
       <Text style={{fontSize:10}}>{this.props.count}</Text>

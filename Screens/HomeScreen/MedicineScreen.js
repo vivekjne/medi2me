@@ -1,6 +1,6 @@
 import React from "react";
 import { AppRegistry, Alert,TouchableHighlight,View,FlatList,Dimensions,ScrollView,Picker,AsyncStorage,ActivityIndicator } from "react-native";
-import {Grid,Badge,Col, Container,List,ListItem,Item,Input,Card, CardItem, Body, Content, Header, Left, Right, Icon, Title, Button, Text } from "native-base";
+import {Grid,Badge,Col, Container,List,ListItem,Item,Input,Card, CardItem, Body, Content, Header, Left, Right, Icon, Title, Button, Text,Footer } from "native-base";
 import { Dropdown } from 'react-native-material-dropdown';
 import { connect } from 'react-redux';
 import { getCartCount } from '../../actions'
@@ -128,7 +128,7 @@ fetch('http://192.168.0.100/api/public/cart/add', {
         </Right>
       </Header>
      {this.state.medicine&&
-        <Content>
+        <Content scrollEnabled={false}>
       {this.state.first_loading==false?<View style={{flex:1}}>
          <View style={{flex:1,padding:5}}>
         <Text style={{fontSize:20,fontWeight:'bold'}}>{this.state.medicine.c_item_name}</Text>
@@ -219,7 +219,9 @@ fetch('http://192.168.0.100/api/public/cart/add', {
             </View>:<ActivityIndicator size="large" color="#00ffff"/>}
         </Content>
      }
-
+   <Footer style={{backgroundColor:'#0db1b0'}}>
+            <View ></View>
+        </Footer>
       </Container>
       
     
